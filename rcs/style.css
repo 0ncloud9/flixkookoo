@@ -1,0 +1,418 @@
+/* 공통 */
+body {
+    background-color: #111;
+    margin: 0;
+    font-family: Arial, sans-serif;
+}
+
+/* 상단 네비게이션 */
+header {
+    padding: 0.5em;
+    background-color: #111;
+    height: 60px;
+}
+
+header nav {
+    display: flex;
+    padding: 0 40px;
+    padding-top: 0.2rem;
+}
+
+.logo_h {
+    height: 32px;
+    width: auto;
+}
+
+header nav div ul {
+    display: flex;
+    gap: 24px;
+    text-decoration: none;
+}
+
+header nav div ul li {
+    list-style: none;
+}
+
+header nav div ul li a {
+    text-decoration: none;
+    color: white;
+}
+
+.primary_navigation {
+    align-items: center;
+    display: flex;
+}
+
+.secondary_navigation {
+    display: flex;
+    margin-left: auto;
+    margin-right: 0;
+}
+
+.secondary_navigation #form {
+    display: flex;
+    position: relative;
+    align-items: center;
+    justify-content: center;
+    margin-left: 12px;
+}
+
+.secondary_navigation #form #search_var {
+    min-width: 300px;
+    max-width: 500px;
+    height: 32px;
+    border: none;
+    display: block;
+    border-radius: 4px;
+    opacity: 33%;
+    padding-left: 10px;
+}
+
+.secondary_navigation #form #search_var:hover {
+    opacity: 90%;
+}
+
+.secondary_navigation #form #search_var:focus {
+    opacity: 90%;
+}
+
+.secondary_navigation form img {
+    position: absolute;
+    width: 20px;
+    top: 16px;
+    right: 10px;
+    opacity: 0.5;
+}
+
+/* 상단 네비게이션 */
+
+
+
+/* 배너 */
+section {
+    height: 100%;
+    display: flex;
+    color: white;
+}
+
+.banner {
+    background-color: green;
+    color: white;
+    background-image: url(https://occ-0-1123-1217.1.nflxso.net/dnm/api/v6/6AYY37jfdO6hpXcMjf9Yu5cnmO0/AAAABeIfo7VL_VDyKnljV66IkR-4XLb6xpZqhpLSo3JUtbivnEW4s60PD27muH1mdaANM_8rGpgbm6L2oDgA_iELHZLZ2IQjG5lvp5d2.jpg?r=e6e.jpg);
+    background-position: center;
+    background-size: cover;
+    width: 100%;
+    height: 400px;
+}
+
+.container {
+    padding-left: 4rem;
+    padding-top: calc(2rem + 0.1vw);
+}
+
+.container h1 {
+    display: block;
+    font-size: calc(2rem + 2.1vw);
+    font-weight: bold;
+    margin-top: calc(8rem);
+    margin-bottom: 0.5rem;
+    line-height: 1.2;
+}
+
+.container p {
+    font-size: calc(2rem + .2vw);
+    margin-top: 0;
+    margin-bottom: 1rem;
+    display: block;
+}
+
+/* 배너 */
+
+
+
+/* 영화목록 */
+.movie_listup p {
+    font-size: calc(1.5rem + .3vw);
+    padding-top: 1rem;
+    margin-left: 2em;
+    display: block;
+    color: white;
+}
+
+main {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+/* Movie Cards */
+.movie {
+    width: 300px;
+    margin: 1rem;
+    border-radius: 4px;
+    box-shadow: 0.7px 4px 5px rgb(0, 0, 0, 0.1);
+    position: relative;
+    overflow: hidden;
+}
+
+.movie img {
+    width: 100%;
+    height: 100%;
+}
+
+.movie_info {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: -10px;
+    color: #eee;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.5rem 1rem;
+    background-color: #1111118c;
+    transform: translateY(110%);
+    transition: transform 0.3s ease-in;
+}
+
+.movie:hover .movie_info {
+    transform: translateY(0);
+}
+
+.movie_info h3 {
+    font-size: 20px;
+    margin-top: 0;
+}
+
+.movie_info p {
+    margin-top: 1rem;
+    font-size: 16px;
+}
+
+.green {
+    font-size: 24px;
+    color: lightgreen;
+    font-weight: bold;
+}
+
+.green:before {
+    content: "Excellent ";
+}
+
+.orange {
+    font-size: 24px;
+    color: orange;
+    font-weight: bold;
+}
+
+.orange:before {
+    content: "Good ";
+}
+
+.red {
+    font-size: 24px;
+    color: red;
+    font-weight: bold;
+}
+
+.red:before {
+    content: "Not Good ";
+}
+
+/* 영화목록 */
+
+
+
+/* 검색결과 */
+#search-results {
+    margin: 2rem 0;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1.5rem;
+}
+
+#search-results .movie {
+    width: 300px;
+    margin: 1rem;
+    border-radius: 4px;
+    box-shadow: 0.7px 4px 5px rgba(0, 0, 0, 0.1);
+    position: relative;
+    overflow: hidden;
+}
+
+#search-results .movie img {
+    width: 100%;
+    height: 100%;
+}
+
+#search-results .movie_info {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    color: #eee;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.5rem 1rem;
+    background-color: #1111118c;
+    transform: translateY(110%);
+    transition: transform 0.3s ease-in;
+}
+
+#search-results .movie:hover .movie_info {
+    transform: translateY(0);
+}
+
+/* 검색결과 */
+
+/* 영화 상세 정보 */
+.detail-container {
+    display: flex;
+    width: 100%;
+    background: rgb(17, 17, 17);
+    background: linear-gradient(0deg, rgba(17, 17, 17, 1) 0%, rgba(17, 17, 17, 1) 46%, rgb(33, 33, 33) 100%);
+    padding: 4rem 4rem;
+    gap: 4rem;
+}
+
+.detail-poster {
+    width: 40%;
+    margin-left: 12%;
+}
+
+.detail-poster img {
+    width: 100%;
+    height: auto;
+    border-radius: 4px;
+}
+
+.detail-movie-info {
+    width: 100%;
+    height: auto;
+    padding: 0 5rem 0 5rem;
+}
+
+
+.detail-movie-info h1 {
+    font-weight: bold;
+    font-size: calc(2rem + 0.5vw);
+    line-height: 14px;
+}
+
+.detail-movie-info .tagline {
+    font-size: 16pt;
+    line-height: 28px;
+    margin-top: 5%;
+    font-style: italic;
+    opacity: 0.35;
+}
+
+.detail-movie-info .overview {
+    font-size: 16pt;
+    line-height: 28px;
+    margin-top: 8px;
+}
+
+.detail-movie-info p {
+    font-size: 16px;
+    line-height: 16px;
+}
+
+.release:before {
+    content: "Release date: ";
+    color: #777;
+}
+
+.run-time:before {
+    content: "Runtime: ";
+    color: #777;
+}
+
+.genre:before {
+    content: "Genre: ";
+    color: #777;
+}
+
+/* 영화 상세 정보 */
+
+
+/* 찜하기&뒤로가기 */
+.buttons {
+    display: flex;
+    align-items: center;
+    justify-items: center;
+    justify-content: center;
+    margin-top: 4rem;
+    gap: 28px;
+}
+
+.buttons #dismiss-btn {
+    width: 300px;
+    height: 56px;
+    font-size: 14pt;
+    background-color: #c00e0e;
+    color: white;
+    border-radius: 4px;
+    border: none;
+    border: solid 2px #c00e0e;
+}
+
+.buttons #like-btn {
+    box-sizing: border-box;
+    width: 300px;
+    height: 56px;
+    font-size: 14pt;
+    background-color: #262626;
+    color: white;
+    border-radius: 4px;
+    border: solid 0.5px white;
+}
+
+.buttons #dismiss-btn:hover {
+    width: 300px;
+    height: 56px;
+    font-size: 14pt;
+    background-color: #c00e0e90;
+    color: white;
+    border-radius: 4px;
+    border: solid 2px #c00e0e5b;;
+}
+
+.buttons #like-btn:hover {
+    width: 300px;
+    height: 56px;
+    font-size: 14pt;
+    background-color: #777777;
+    color: white;
+    border-radius: 4px;
+    border: solid 0.5px white;
+}
+/* 찜하기&뒤로가기 */
+
+
+
+/* 발바닥 */
+.footer {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #111;
+    padding: 64px 0px 16px 0px;
+    color: white;
+    margin-top: auto;
+    gap: 12px;
+}
+
+.logo_f {
+    height: 20px;
+    width: auto;
+}
+
+.footerA {
+    padding-top: 0.2rem;
+    color: #c00e0e;
+    text-decoration: none;
+    padding-left: 8px;
+    font-size: 20px;
+}

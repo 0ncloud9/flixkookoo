@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FilxKooKoo - Movie Details</title>
+    <link rel="stylesheet" href="./rcs/style.css">
+</head>
+
+<body>
+
+    <!-- 네비게이션 -->
+    <header>
+        <nav class="navigation">
+            <div class="primary_navigation">
+                <a href="./index.html"><img class="logo_h" src="./rcs/img/flixkookoo_logo.png" alt="Logo"></a>
+                <ul>
+                    <li><a href="/index.html">홈</a></li>
+                    <li><a id="a">내가 찜한 콘텐츠</a></li>
+                </ul>
+            </div>
+            <div class="secondary_navigation">
+                <form id="form" action="/search.html" method="get">
+                    <input id="search_var" name="query" type="text" placeholder="영화 제목으로 검색하기..." aria-label="Search">
+                    <img src="https://s3.ap-northeast-2.amazonaws.com/cdn.wecode.co.kr/icon/search.png" alt="Search">
+                </form>
+                <ul>
+                    <li><a id="a" href="#">로그인</a></li>
+                    <li><a id="a" href="#">회원가입</a></li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <!-- 영화상세 -->
+    <section id="movie-details">
+        <!-- 영화 생성 위치 -->
+    </section>
+    <!-- 영화상세 -->
+
+    <div class="buttons">
+        <button id="like-btn">⊕  Like</button>
+        <button id="dismiss-btn">Dismiss ⌫</button>
+    </div>
+
+    <!-- 푸터 -->
+    <footer class="footer">
+        <img class="logo_f" src="./rcs/img/flixkookoo_logo.png" alt="Logo">
+        <a class="footerA" href="#">All rights reserved.</a>
+    </footer>
+
+    <script src="./rcs/script.js"></script>
+</body>
+
+</html>
