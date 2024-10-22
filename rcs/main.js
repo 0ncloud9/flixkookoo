@@ -1,106 +1,86 @@
-import { fetchMovies, fetchMovieDetails } from './api.js';
-import { renderMovies, renderMovieDetails } from './ui.js';
+import { getMovies, getMovieDetails } from './api.js';
+import { showMovies, displayMovieDetails } from './ui.js';
 
-// 영화 목록 페이지
-const popularEndpoint = '/movie/popular';
-const nowPlayingEndpoint = '/movie/now_playing';
-const topRatedEndpoint = '/movie/top_rated';
+const searchBaseUrl = `https://api.themoviedb.org/3/search/movie?api_key=ade034bc79c85d587668c346b2fbcc23&language=en-US&query=`;
+const popularUrl = `https://api.themoviedb.org/3/movie/popular?api_key=ade034bc79c85d587668c346b2fbcc23&language=en-US&page=1`;
+const nowUrl = `https://api.themoviedb.org/3/movie/now_playing?api_key=ade034bc79c85d587668c346b2fbcc23&language=en-US&page=1`;
+const topUrl = `https://api.themoviedb.org/3/movie/top_rated?api_key=ade034bc79c85d587668c346b2fbcc23&language=en-US&page=1`;
+
+// 현재 페이지 이름 가져오기
 const currentPage = window.location.pathname.split('/').pop();
 
-// index.html에서 영화 목록 가져오기
+// index.html에서 영화 목록 불러오기
 if (currentPage === 'index.html') {
-    const popularContainer = document.getElementById('popular-movies');
-    const nowPlayingContainer = document.getElementById('now-playing');
-    const topRatedContainer = document.getElementById('top-rated');
-
-    // 영화 목록을 비동기로 로드
-    async function loadMovies() {
-        try {
-            const popularMovies = await fetchMovies(popularEndpoint);
-            const nowPlayingMovies = await fetchMovies(nowPlayingEndpoint);
-            const topRatedMovies = await fetchMovies(topRatedEndpoint);
-
-            // UI에 영화 목록 표시
-            renderMovies(popularMovies, popularContainer);
-            renderMovies(nowPlayingMovies, nowPlayingContainer);
-            renderMovies(topRatedMovies, topRatedContainer);
-        } catch (error) {
-            console.error('영화 목록을 불러오는 중 오류 발생:', error);
-        }
-    }
-
-    loadMovies();
-
-    // 영화 카드에 대한 이벤트 위임 설정
-    document.addEventListener('click', function (e) {
-        if (e.target.closest('.movie')) {
-            const movieEl = e.target.closest('.movie');
-            const movieId = movieEl.getAttribute('data-id');
-            window.location.href = `details.html?id=${movieId}`;
-        }
-    });
+    loadStoredMovies();  // 저장된 영화 목록 상태 복원
+    getMovies(popularUrl).then(data => showMovies(data, document.getElementById('popular-movies')));
+    getMovies(nowUrl).then(data => showMovies(data, document.getElementById('now-playing')));
+    getMovies(topUrl).then(data => showMovies(data, document.getElementById('top-rated')));
 }
 
-// 영화 상세 페이지
+// search.html에서 검색 결과 처리
 const searchParams = new URLSearchParams(window.location.search);
+const searchQuery = searchParams.get('query');
+if (searchQuery) {
+    document.getElementById('search-term').textContent = searchQuery;
+    const searchUrl = `${searchBaseUrl}${encodeURIComponent(searchQuery)}`;
+    getMovies(searchUrl).then(data => showMovies(data, document.getElementById('search-results')));
+}
+
+// details.html에서 영화 상세 정보 불러오기
 const movieId = searchParams.get('id');
 if (currentPage === 'details.html' && movieId) {
-    const movieDetailsContainer = document.getElementById('movie-details');
+    const detailsUrl = `https://api.themoviedb.org/3/movie/${movieId}?api_key=ade034bc79c85d587668c346b2fbcc23&language=en-US`;
+    getMovieDetails(detailsUrl).then(movie => displayMovieDetails(movie, document.getElementById('movie-details')));
+    addDismissButtonListener();  // 닫기 버튼에 이벤트 리스너 추가
+}
 
-    // 영화 상세 정보 로드
-    async function loadMovieDetails() {
-        try {
-            const movie = await fetchMovieDetails(movieId);
-
-            // UI에 영화 상세 정보 표시
-            renderMovieDetails(movie, movieDetailsContainer);
-        } catch (error) {
-            console.error('영화 상세 정보를 불러오는 중 오류 발생:', error);
-        }
-    }
-
-    loadMovieDetails();
-
-    // 뒤로 가기 버튼 설정
+// 닫기 버튼에 이벤트 리스너를 추가하는 함수
+function addDismissButtonListener() {
     const dismissButton = document.getElementById('dismiss-btn');
     dismissButton.addEventListener('click', function () {
-        window.history.back();
+        window.history.back();  // 이전 페이지로 돌아가기
     });
 }
 
-// 검색 기능 처리
+// 현재 영화 목록을 sessionStorage에 저장하는 함수
+function saveMoviesToStorage(movies, url) {
+    const movieData = { movies, url };
+    sessionStorage.setItem('movieList', JSON.stringify(movieData));
+}
+
+// sessionStorage에서 저장된 영화 목록을 불러오는 함수
+function loadStoredMovies() {
+    const movieData = JSON.parse(sessionStorage.getItem('movieList'));
+    if (movieData) {
+        const containerMap = {
+            [popularUrl]: document.getElementById('popular-movies'),
+            [nowUrl]: document.getElementById('now-playing'),
+            [topUrl]: document.getElementById('top-rated'),
+        };
+        showMovies(movieData.movies, containerMap[movieData.url]);
+    }
+}
+
+// 모든 페이지에서 검색 기능을 처리하는 함수
 const form = document.getElementById('form');
 if (form) {
     form.addEventListener('submit', function (e) {
-        e.preventDefault();
+        e.preventDefault();  // 페이지 새로고침 방지
         const searchTerm = document.getElementById('search_var').value;
         if (searchTerm) {
-            window.location.href = `search.html?query=${searchTerm}`;
+            window.location.href = `search.html?query=${searchTerm}`;  // 검색 결과 페이지로 이동
         }
     });
 }
 
-// search.html에서 검색 결과 표시
-if (currentPage === 'search.html' && searchParams.get('query')) {
-    const searchQuery = searchParams.get('query');
-    const searchResultsContainer = document.getElementById('search-results');
-
-    async function loadSearchResults() {
-        try {
-            const searchResults = await fetchMovies(`/search/movie?query=${encodeURIComponent(searchQuery)}`);
-            renderMovies(searchResults, searchResultsContainer);
-        } catch (error) {
-            console.error('검색 결과를 불러오는 중 오류 발생:', error);
-        }
-    }
-
-    loadSearchResults();
-}
-
-// 상단 네비게이션 홈 버튼 (모든 페이지)
-const homeButton = document.querySelector('.logo_h');
-if (homeButton) {
-    homeButton.addEventListener('click', function (e) {
-        window.location.href = 'index.html';
+//준비중 알림
+function alertComingSoon() {
+    document.querySelectorAll('#a').forEach(function (element) {
+        element.addEventListener('click', function (event) {
+            event.preventDefault();
+            alert("Coming Soon...!");
+        });
     });
 }
+// DOM이 로드되면 함수 실행
+document.addEventListener('DOMContentLoaded', alertComingSoon);
