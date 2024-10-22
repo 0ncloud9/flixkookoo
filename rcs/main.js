@@ -15,14 +15,18 @@ if (currentPage === 'index.html') {
 
     // 영화 목록을 비동기로 로드
     async function loadMovies() {
-        const popularMovies = await fetchMovies(popularEndpoint);
-        const nowPlayingMovies = await fetchMovies(nowPlayingEndpoint);
-        const topRatedMovies = await fetchMovies(topRatedEndpoint);
+        try {
+            const popularMovies = await fetchMovies(popularEndpoint);
+            const nowPlayingMovies = await fetchMovies(nowPlayingEndpoint);
+            const topRatedMovies = await fetchMovies(topRatedEndpoint);
 
-        // UI에 영화 목록 표시
-        renderMovies(popularMovies, popularContainer);
-        renderMovies(nowPlayingMovies, nowPlayingContainer);
-        renderMovies(topRatedMovies, topRatedContainer);
+            // UI에 영화 목록 표시
+            renderMovies(popularMovies, popularContainer);
+            renderMovies(nowPlayingMovies, nowPlayingContainer);
+            renderMovies(topRatedMovies, topRatedContainer);
+        } catch (error) {
+            console.error('영화 목록을 불러오는 중 오류 발생:', error);
+        }
     }
 
     loadMovies();
@@ -45,13 +49,23 @@ if (currentPage === 'details.html' && movieId) {
 
     // 영화 상세 정보 로드
     async function loadMovieDetails() {
-        const movie = await fetchMovieDetails(movieId);
+        try {
+            const movie = await fetchMovieDetails(movieId);
 
-        // UI에 영화 상세 정보 표시
-        renderMovieDetails(movie, movieDetailsContainer);
+            // UI에 영화 상세 정보 표시
+            renderMovieDetails(movie, movieDetailsContainer);
+        } catch (error) {
+            console.error('영화 상세 정보를 불러오는 중 오류 발생:', error);
+        }
     }
 
     loadMovieDetails();
+
+    // 뒤로 가기 버튼 설정
+    const dismissButton = document.getElementById('dismiss-btn');
+    dismissButton.addEventListener('click', function () {
+        window.history.back();
+    });
 }
 
 // 검색 기능 처리
@@ -63,5 +77,30 @@ if (form) {
         if (searchTerm) {
             window.location.href = `search.html?query=${searchTerm}`;
         }
+    });
+}
+
+// search.html에서 검색 결과 표시
+if (currentPage === 'search.html' && searchParams.get('query')) {
+    const searchQuery = searchParams.get('query');
+    const searchResultsContainer = document.getElementById('search-results');
+
+    async function loadSearchResults() {
+        try {
+            const searchResults = await fetchMovies(`/search/movie?query=${encodeURIComponent(searchQuery)}`);
+            renderMovies(searchResults, searchResultsContainer);
+        } catch (error) {
+            console.error('검색 결과를 불러오는 중 오류 발생:', error);
+        }
+    }
+
+    loadSearchResults();
+}
+
+// 상단 네비게이션 홈 버튼 (모든 페이지)
+const homeButton = document.querySelector('.logo_h');
+if (homeButton) {
+    homeButton.addEventListener('click', function (e) {
+        window.location.href = 'index.html';
     });
 }
