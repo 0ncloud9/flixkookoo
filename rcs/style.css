@@ -109,7 +109,7 @@ section {
 
 .container {
     padding-left: 4rem;
-    padding-top: calc(20em - 6vw);
+    padding-top: calc(6vw);
 }
 
 .container h1 {
