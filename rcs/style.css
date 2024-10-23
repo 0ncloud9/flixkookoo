@@ -5,6 +5,8 @@ body {
     font-family: Arial, sans-serif;
 }
 
+
+
 /* 상단 네비게이션 */
 header {
     padding: 0.5em;
@@ -83,7 +85,6 @@ header nav div ul li a {
     right: 10px;
     opacity: 0.5;
 }
-
 /* 상단 네비게이션 */
 
 
@@ -125,7 +126,6 @@ section {
     margin-bottom: 1rem;
     display: block;
 }
-
 /* 배너 */
 
 
@@ -217,7 +217,6 @@ main {
 .red:before {
     content: "Not Good ";
 }
-
 /* 영화목록 */
 
 
@@ -262,8 +261,9 @@ main {
 #search-results .movie:hover .movie_info {
     transform: translateY(0);
 }
-
 /* 검색결과 */
+
+
 
 /* 영화 상세 정보 */
 .detail-container {
@@ -332,11 +332,11 @@ main {
     content: "Genre: ";
     color: #777;
 }
-
 /* 영화 상세 정보 */
 
 
-/* 찜하기&뒤로가기 */
+
+/* 좋아요&뒤로가기 */
 .buttons {
     display: flex;
     align-items: center;
@@ -388,6 +388,15 @@ main {
     border: solid 0.5px white;
 }
 /* 찜하기&뒤로가기 */
+
+
+
+/* 좋아요 목록 */
+.container #liked-movies {
+    padding: 1em 4em 1em 4em;
+    display: flex;
+}
+/* 좋아요 목록 */
 
 
 
