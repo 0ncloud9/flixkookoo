@@ -1,7 +1,7 @@
 const apiKey = "ade034bc79c85d587668c346b2fbcc23";
 const apiBaseUrl = `https://api.themoviedb.org/3`;
 
-// 영화 목록을 가져오는 함수
+// 영화 목록을 가져rl
 export async function getMovies(url) {
     try {
         const res = await fetch(url);
@@ -13,7 +13,7 @@ export async function getMovies(url) {
     }
 }
 
-// 영화 상세 정보를 가져오는 함수
+// 영화 상세 정보를 가져오기
 export async function getMovieDetails(url) {
     try {
         const res = await fetch(url);
