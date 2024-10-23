@@ -99,16 +99,17 @@ section {
 .banner {
     background-color: green;
     color: white;
-    background-image: url(https://occ-0-1123-1217.1.nflxso.net/dnm/api/v6/6AYY37jfdO6hpXcMjf9Yu5cnmO0/AAAABeIfo7VL_VDyKnljV66IkR-4XLb6xpZqhpLSo3JUtbivnEW4s60PD27muH1mdaANM_8rGpgbm6L2oDgA_iELHZLZ2IQjG5lvp5d2.jpg?r=e6e.jpg);
+    background-image: url(https://image.cine21.com/resize/cine21/still/2021/0521/12_00_29__60a7224d6fda4[W578-].jpg);
     background-position: center;
     background-size: cover;
     width: 100%;
-    height: 400px;
+    height: 600px;
+    transition: 1.5s ease-in-out;
 }
 
 .container {
     padding-left: 4rem;
-    padding-top: calc(2rem + 0.1vw);
+    padding-top: calc(20em - 6vw);
 }
 
 .container h1 {
@@ -125,6 +126,14 @@ section {
     margin-top: 0;
     margin-bottom: 1rem;
     display: block;
+}
+
+.banner.fade-out {
+    filter: brightness(50%);
+}
+
+.banner.fade-in {
+    filter: brightness(100%);
 }
 /* 배너 */
 
