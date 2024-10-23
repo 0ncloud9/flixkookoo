@@ -1,4 +1,10 @@
 const imgUrl = "https://image.tmdb.org/t/p/w1280";
+const images = [
+    'https://image.cine21.com/resize/cine21/still/2021/0521/12_00_54__60a72266d0cc4[W578-].jpg',
+    'https://image.cine21.com/resize/cine21/still/2021/0521/12_00_41__60a72259df68a[W578-].jpg',
+    'https://image.cine21.com/resize/cine21/still/2021/0521/12_00_17__60a7224163b33[W578-].jpg'
+];
+
 
 // 영화 목록을 화면에 표시하고, 영화 클릭 시 상세페이지로 이동
 export function showMovies(movies, container) {
@@ -49,3 +55,34 @@ function getClassByRate(vote) {
     if (vote >= 5) return 'orange';
     return 'red';
 }
+
+// 배너 루프
+let currentImageIndex = 0;
+const bannerElement = document.querySelector('.banner');
+
+function wait(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+async function changeImage() {
+    bannerElement.classList.remove('fade-in');
+    bannerElement.classList.add('fade-out');
+    
+    await wait(1000);
+    
+    currentImageIndex = (currentImageIndex + 1) % images.length;
+    bannerElement.style.backgroundImage = `url(${images[currentImageIndex]})`;
+    
+    bannerElement.classList.remove('fade-out');
+    bannerElement.classList.add('fade-in');
+}
+
+async function startImageRotation() {
+    while (true) {
+        await changeImage();
+        await wait(3000);
+    }
+}
+
+// 배경이미지 무한루프
+startImageRotation();
