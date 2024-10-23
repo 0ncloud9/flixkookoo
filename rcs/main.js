@@ -107,3 +107,9 @@ if (currentPage === 'like.html') {
         document.getElementById('liked-movies').innerHTML = '<div><h3>좋아요한 영화가 없습니다.</h3></div>';
     }
 }
+
+// 미구현 기능 알림
+const alertComingSoon = document.getElementById('a');
+alertComingSoon.addEventListener('click', () => {
+    alert("Coming Soon");
+});
