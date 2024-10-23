@@ -104,6 +104,6 @@ if (currentPage === 'like.html') {
     if (likedMovies.length > 0) {
         showMovies(likedMovies, document.getElementById('liked-movies'));
     } else {
-        document.getElementById('liked-movies').innerHTML = '<p>좋아요한 영화가 없습니다.</p>';
+        document.getElementById('liked-movies').innerHTML = ''<div>좋아요한 영화가 없습니다.</div>';';
     }
 }
